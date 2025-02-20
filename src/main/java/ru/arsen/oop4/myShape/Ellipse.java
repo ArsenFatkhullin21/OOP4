@@ -45,4 +45,11 @@ public class Ellipse extends Shape {
 
     }
 
+    @Override
+    public boolean contains(double x, double y) {
+        double dx = x - super.getX();
+        double dy = y - super.getY();
+        return (dx * dx) / (radiusX * radiusX) + (dy * dy) / (radiusY * radiusY) <= 1;
+    }
+
 }

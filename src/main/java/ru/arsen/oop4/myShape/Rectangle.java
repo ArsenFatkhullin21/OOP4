@@ -38,4 +38,9 @@ public class Rectangle extends Shape {
         gc.fillRect(x,y, width, height);
         gc.strokeRect(x, y, width, height);
     }
+
+    @Override
+    public boolean contains(double x, double y) {
+        return x >= getX() && x <= getX() + width && y >= getY() && y <= getY() + height;
+    }
 }

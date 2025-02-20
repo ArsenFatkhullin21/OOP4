@@ -38,4 +38,9 @@ public class Line  extends Shape {
         gc.setLineWidth(strokeWeight);// Толщина линии
         gc.strokeLine(x, y, x2, y2);
     }
+
+    @Override
+    public boolean contains(double x, double y) {
+        return false;
+    }
 }

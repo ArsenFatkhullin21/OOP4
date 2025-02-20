@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
-public class Shape {
+public abstract class Shape {
 
     protected double x;
     protected double y;
@@ -53,4 +53,6 @@ public class Shape {
     }
 
     public void draw(GraphicsContext gc) {}
+
+    public abstract boolean contains(double x, double y);
 }

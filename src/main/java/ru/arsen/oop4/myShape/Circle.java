@@ -5,17 +5,19 @@ import javafx.scene.paint.Color;
 
 public class Circle extends Ellipse {
 
+    private double radius;
+
     public Circle(double x, double y, double radius, Color color,int stroke) {
         super(x, y, radius, radius, color,stroke);
+        this.radius = radius;
     }
 
     public double getRadius() {
-        return radiusX;
+        return radius;
     }
 
     public void setRadius(double radius) {
-        this.radiusX = radius;
-        this.radiusY = radius;
+        this.radius = radius;
     }
 
     @Override
@@ -26,5 +28,12 @@ public class Circle extends Ellipse {
         gc.setLineWidth(strokeWeight);
         gc.strokeOval(x , y , radiusX, radiusY);
 
+    }
+
+    @Override
+    public boolean contains(double x, double y) {
+        double dx = x - super.getX();
+        double dy = y - super.getY();
+        return dx * dx + dy * dy <= radius * radius;
     }
 }

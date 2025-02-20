@@ -66,4 +66,15 @@ public class Triangle extends Shape {
         gc.strokePolygon(xPoints, yPoints, 3);
 
     }
+
+    @Override
+    public boolean contains(double _x, double _y) {
+        double area1 = Math.abs((x*(y2 - y3) + _x*(y3 - y2) + x2*(_y - y3)) / 2);
+        double area2 = Math.abs((x2*(y3 - y) + _x*(y - y3) + x3*(_y - y)) / 2);
+        double area3 = Math.abs((x3*(y - y2) + _x*(y2 - y) + x*(_y - y2)) / 2);
+        double areaTotal = Math.abs((x*(y2 - y3) + x2*(y3 - y) + x3*(y - y2)) / 2);
+
+        // Если сумма всех трех областей равна общей области треугольника, то точка внутри
+        return area1 + area2 + area3 == areaTotal;
+    }
 }
