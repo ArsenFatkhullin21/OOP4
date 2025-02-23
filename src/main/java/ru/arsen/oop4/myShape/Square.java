@@ -2,8 +2,9 @@ package ru.arsen.oop4.myShape;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import ru.arsen.oop4.interfaces.Moveable;
 
-public class Square  extends  Rectangle {
+public class Square  extends  Rectangle implements Moveable {
 
     private double sideLength;
 

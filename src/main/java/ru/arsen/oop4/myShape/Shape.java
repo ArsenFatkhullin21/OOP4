@@ -9,15 +9,37 @@ public abstract class Shape {
 
     protected double x;
     protected double y;
+    protected double width;
+    protected double height;
     protected Color color;
     protected int strokeWeight;
 
+    public Shape() {
+    }
 
-    public Shape(double x, double y, Color color,int strokeWeight) {
+    public Shape(double x, double y, double width, double height, Color color, int strokeWeight) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.strokeWeight=strokeWeight;
+        this.width=width;
+        this.height=height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     public double getX() {
@@ -52,7 +74,7 @@ public abstract class Shape {
         this.strokeWeight = strokeWeight;
     }
 
-    public void draw(GraphicsContext gc) {}
+    public abstract void draw(GraphicsContext gc);
 
     public abstract boolean contains(double x, double y);
 }

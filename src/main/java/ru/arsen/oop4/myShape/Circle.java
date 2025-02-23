@@ -2,8 +2,9 @@ package ru.arsen.oop4.myShape;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import ru.arsen.oop4.interfaces.Moveable;
 
-public class Circle extends Ellipse {
+public class Circle extends Ellipse implements Moveable {
 
     private double radius;
 
@@ -36,4 +37,6 @@ public class Circle extends Ellipse {
         double dy = y - super.getY();
         return dx * dx + dy * dy <= radius * radius;
     }
+
+
 }

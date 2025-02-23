@@ -1,12 +1,24 @@
 package ru.arsen.oop4.myList;
 
-public class MyList<T>{
+import java.util.Iterator;
+import java.util.List;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+
+public class MyList<T> implements Iterable<T> {
 
     private Node<T> head;
     private Node<T> tail;
     private int size;
 
+    // Конструктор по умолчанию
+    public MyList() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
 
+    // Добавление элемента в конец списка
     public void add(T value) {
         Node<T> newNode = new Node<>(value);
         if (head == null) {
@@ -19,6 +31,7 @@ public class MyList<T>{
         size++;
     }
 
+    // Получение элемента по индексу
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
@@ -30,6 +43,7 @@ public class MyList<T>{
         return temp.getData();
     }
 
+    // Удаление элемента по индексу
     public void remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
@@ -55,14 +69,47 @@ public class MyList<T>{
         size--;
     }
 
+    // Удаление элемента по значению
+    public void remove(T value) {
+        Node<T> current = head;
+        Node<T> previous = null;
+
+        while (current != null) {
+            if (current.getData().equals(value)) {
+                if (previous == null) {
+                    head = current.getNext();  // Если удаляем первый элемент
+                } else {
+                    previous.setNext(current.getNext());  // Удаляем из середины или конца
+                }
+                if (current.getNext() == null) { // Если удаляем последний элемент
+                    tail = previous;
+                }
+                size--;
+                return;
+            }
+            previous = current;
+            current = current.getNext();
+        }
+    }
+
+    // Удаление всех элементов из списка
+    public void removeAll(Iterable<T> otherList) {
+        for (T value : otherList) {
+            remove(value);  // Для каждого элемента в otherList удаляем его из текущего списка
+        }
+    }
+
+    // Возвращает размер списка
     public int size() {
         return size;
     }
 
+    // Проверка на пустоту списка
     public boolean isEmpty() {
         return size == 0;
     }
 
+    // Проверка, содержится ли значение в списке
     public boolean contains(T value) {
         Node<T> temp = head;
         while (temp != null) {
@@ -74,13 +121,14 @@ public class MyList<T>{
         return false;
     }
 
-    public void removeAll(){
-        for(int i = 0; i < size; i++){
-            remove(i);
-        }
-
+    // Удаление всех элементов из списка
+    public void removeAll() {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
+    // Печать списка
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
@@ -96,9 +144,38 @@ public class MyList<T>{
         return sb.toString();
     }
 
+    // Итератор для обхода списка
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;  // Начинаем с головы списка
 
+            @Override
+            public boolean hasNext() {
+                return current != null;  // Есть следующий элемент?
+            }
 
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new java.util.NoSuchElementException();  // Если нет следующего элемента, выбрасываем исключение
+                }
+                T data = current.getData();  // Берем данные текущего элемента
+                current = current.getNext();  // Переходим к следующему элементу
+                return data;
+            }
+        };
+    }
 
+    // Метод forEach, вызываемый для каждого элемента
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        Iterable.super.forEach(action);
+    }
 
-
+    // Метод spliterator
+    @Override
+    public Spliterator<T> spliterator() {
+        return Iterable.super.spliterator();
+    }
 }
